@@ -44,6 +44,21 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="penerbit_id" class="form-label">Kategori</label>
+                        <select class="form-select form-select-md mb-3
+                            @error('penerbit_id') is-invalid @enderror
+                        " id="penerbit_id" name="penerbit_id">
+                            @foreach ($penerbits as $penerbit)]
+                                <option value="{{ $penerbit->id }}" {{ $buku->penerbit_id == $penerbit->id ? 'selected' : '' }}>{{ $penerbit->namaPenerbit }}</option>
+                            @endforeach
+                        </select>
+
+                        @error('penerbit_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="sampul" class="form-label">Sampul buku</label>
                         @if ($buku->sampul)
                             <img src="{{ asset('storage/' . $buku->sampul) }}" class="img-preview img-fluid mb-3 d-block" width="250px">

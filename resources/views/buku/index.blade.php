@@ -13,6 +13,7 @@
                             <th>Judul</th>
                             <th>Penulis</th>
                             <th>Kategori</th>
+                            <th>Penerbit</th>
                             <th>Sampul</th>
                             <th>Aksi</th>
                         </tr>
@@ -25,6 +26,7 @@
                             <td>{{ $buku->judul }}</td>
                             <td>{{ $buku->penulis }}</td>
                             <td>{{ $buku->category->name ?? '-' }}</td>
+                            <td>{{ $buku->penerbit->namaPenerbit ?? '-' }}</td>
                             <td>
                                 <img src="storage/{{ $buku->sampul }}" class="rounded img-fluid" width="100px">
                             </td>

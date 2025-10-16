@@ -20,6 +20,9 @@
                     <a class="nav-link" href="/category">Kategori</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/penerbit">Penerbit</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/mahasiswa">Mahasiswa</a>
                 </li>
             </ul>

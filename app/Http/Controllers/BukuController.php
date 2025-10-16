@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
 use App\Models\Category;
+use App\Models\Penerbit;
 
 class BukuController extends Controller
 {
@@ -16,7 +17,7 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $bukus = Buku::with('category')->get();
+        $bukus = Buku::with('category', 'penerbit')->get();
         return view('buku.index', compact('bukus'));
     }
 
@@ -26,7 +27,8 @@ class BukuController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('buku.create', compact('categories'));
+        $penerbits = Penerbit::all();
+        return view('buku.create', compact('categories', 'penerbits'));
     }
 
     /**
@@ -38,7 +40,8 @@ class BukuController extends Controller
             'judul' => 'required',
             'penulis' => 'required',
             'category_id' => 'required',
-            'sampul' => 'required|image|file|max:2048',
+            'penerbit_id' => 'required',
+            'sampul' => 'required|image|file|max:2048'
         ]);
 
         if ($request->file('sampul')) {
@@ -64,7 +67,8 @@ class BukuController extends Controller
     {
         $buku = Buku::findOrFail($id);
         $categories = Category::all();
-        return view('buku.update', compact('buku', 'categories'));
+        $penerbits = Penerbit::all();
+        return view('buku.update', compact('buku', 'categories', 'penerbits'));
     }
 
     /**
@@ -76,7 +80,8 @@ class BukuController extends Controller
             'judul' => 'required',
             'penulis' => 'required',
             'category_id' => 'required',
-            'sampul' => 'image|file|max:2048',
+            'penerbit_id' => 'required',
+            'sampul' => 'image|file|max:2048'
         ]);
         if ($request->file('sampul')) {
             if ($request->sampulLama) {

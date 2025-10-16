@@ -14,4 +14,9 @@ class Buku extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function penerbit()
+    {
+        return $this->belongsTo(Penerbit::class);
+    }
 }
