@@ -24,7 +24,7 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $buku->judul }}</td>
                             <td>{{ $buku->penulis }}</td>
-                            <td>{{ $buku->kategori }}</td>
+                            <td>{{ $buku->category->name ?? '-' }}</td>
                             <td>
                                 <img src="storage/{{ $buku->sampul }}" class="rounded img-fluid" width="100px">
                             </td>

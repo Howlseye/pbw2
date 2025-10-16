@@ -17,7 +17,10 @@ class BukuFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'judul' => $this->faker->sentence(),
+            'penulis' => $this->faker->name(),
+            'kategori' => $this->faker->word(),
+            'sampul' => 'sampul-buku/sampul.jpg'
         ];
     }
 }

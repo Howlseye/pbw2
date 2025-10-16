@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreBukuRequest;
 use App\Http\Requests\UpdateBukuRequest;
-use Random\BrokenRandomEngineError;
+use App\Models\Category;
 
 class BukuController extends Controller
 {
@@ -16,9 +16,8 @@ class BukuController extends Controller
      */
     public function index()
     {
-        return view('buku.index', [
-            'bukus' => DB::table('bukus')->get()
-        ]);
+        $bukus = Buku::with('category')->get();
+        return view('buku.index', compact('bukus'));
     }
 
     /**
@@ -26,7 +25,8 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('buku.create');
+        $categories = Category::all();
+        return view('buku.create', compact('categories'));
     }
 
     /**
@@ -37,7 +37,7 @@ class BukuController extends Controller
         $ValidatedData = $request->validate([
             'judul' => 'required',
             'penulis' => 'required',
-            'kategori' => 'required',
+            'category_id' => 'required',
             'sampul' => 'required|image|file|max:2048',
         ]);
 
@@ -62,10 +62,9 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
-        $test = DB::table('bukus')->where('id', $id)->get();
-        return view('buku/update', [    
-            'buku' => $test[0]
-        ]);
+        $buku = Buku::findOrFail($id);
+        $categories = Category::all();
+        return view('buku.update', compact('buku', 'categories'));
     }
 
     /**
@@ -76,7 +75,7 @@ class BukuController extends Controller
         $ValidatedData = $request->validate([
             'judul' => 'required',
             'penulis' => 'required',
-            'kategori' => 'required',
+            'category_id' => 'required',
             'sampul' => 'image|file|max:2048',
         ]);
         if ($request->file('sampul')) {

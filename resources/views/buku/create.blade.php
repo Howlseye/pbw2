@@ -23,17 +23,16 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="kategori" class="form-label">Kategori</label>
+                        <label for="category_id" class="form-label">Kategori</label>
                         <select class="form-select form-select-md mb-3
-                            @error('kategori') is-invalid @enderror
-                        " id="kategori" name="kategori">
-                            <option selected>Pilih Kategori</option>
-                            <option value="Novel">Novel</option>
-                            <option value="Komik">Komik</option>
-                            <option value="Biografi">Biografi</option>
+                            @error('category_id') is-invalid @enderror
+                        " id="category_id" name="category_id">
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{{ $category->name }}}</option>
+                            @endforeach
                         </select>
                         
-                        @error('kategori')
+                        @error('category_id')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
